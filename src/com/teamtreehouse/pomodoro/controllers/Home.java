@@ -74,10 +74,16 @@ public class Home {
         }));
 
         mTimeline.setOnFinished(e -> {
+            saveCurrentAttempt();
             (mCurrentAttempt.getKind() == AttemptKind.FOCUS ? mAudioFocus : mAudioPause).play();
             prepareAttempt(mCurrentAttempt.getKind() == AttemptKind.FOCUS ?
                     AttemptKind.BREAK : AttemptKind.FOCUS);
         });
+    }
+
+    private void saveCurrentAttempt() {
+        mCurrentAttempt.setMessage(message.getText());
+        mCurrentAttempt.save();
     }
 
     private void reset() {
